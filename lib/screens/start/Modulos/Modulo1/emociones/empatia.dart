@@ -1,18 +1,17 @@
-import 'package:emocioipe/screens/start/Modulos/Modulo1/definicion/definicion.dart';
-import 'package:emocioipe/screens/start/Modulos/Modulo1/emociones/index.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MenuConceptos extends StatefulWidget {
-  const MenuConceptos({super.key});
+class Empatia extends StatefulWidget {
+  const Empatia({super.key});
 
   @override
-  State<MenuConceptos> createState() => MenuConceptosState();
+  State<Empatia> createState() => _EmpatiaState();
 }
 
-class MenuConceptosState extends State<MenuConceptos> {
-  bool _isButton2Enabled = false;
-  bool _isButton3Enabled = false;
+class _EmpatiaState extends State<Empatia> {
+  bool _secondButtonE = false;
+  bool _thirdButtonE = false;
+  bool _fourthButtonE = false;
 
   @override
   void initState() {
@@ -23,39 +22,52 @@ class MenuConceptosState extends State<MenuConceptos> {
   Future<void> _loadButtonStates() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _isButton2Enabled = prefs.getBool('isButton2Enabled') ?? false;
-      _isButton3Enabled = prefs.getBool('isButton3Enabled') ?? false;
+      _secondButtonE = prefs.getBool('isSecondButtonEnabled') ?? false;
+      _thirdButtonE = prefs.getBool('isThirdButtonEnabled') ?? false;
+      _fourthButtonE = prefs.getBool('isFourthButtonEnabled') ?? false;
     });
   }
 
-  Future<void> _onFirstButtonPressed() async {
+  Future<void> _onFirstBtnPressedE() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const DefinicionEmocion()),
+      MaterialPageRoute(builder: (context) => const EmpatiaVista()),
     );
     setState(() {
-      _isButton2Enabled = true;
+      _secondButtonE = true;
     });
     final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isButton2Enabled', true);
+    prefs.setBool('isSecondButtonEnabled', true);
   }
 
-  Future<void> _onSecondButtonPressed() async {
+  Future<void> _onSecondBtnPressedE() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const IndexEmociones()),
+      MaterialPageRoute(builder: (context) => const SegundaVista()),
     );
     setState(() {
-      _isButton3Enabled = true;
+      _thirdButtonE = true;
     });
     final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isButton3Enabled', true);
+    prefs.setBool('isThirdButtonEnabled', true);
   }
 
-  Future<void> _onThirdButtonPressed() async {
+  Future<void> _onThirdBtnPressedE() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const EmocionesView()),
+      MaterialPageRoute(builder: (context) => const TerceraVista()),
+    );
+    setState(() {
+      _fourthButtonE = true;
+    });
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isFourthButtonEnabled', true);
+  }
+
+  Future<void> _onFourthBtnPressedE() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CuartaVista()),
     );
   }
 
@@ -68,7 +80,7 @@ class MenuConceptosState extends State<MenuConceptos> {
           Align(
             alignment: Alignment.center,
             child: Image.asset(
-              'assets/img/modulo1/4.jpg',
+              'assets/img/modulo1/36.jpg',
               fit: BoxFit.cover,
             ),
           ),
@@ -77,7 +89,7 @@ class MenuConceptosState extends State<MenuConceptos> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: _onFirstButtonPressed,
+                  onTap: _onFirstBtnPressedE,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     margin:
@@ -96,7 +108,7 @@ class MenuConceptosState extends State<MenuConceptos> {
                       padding: EdgeInsets.all(20),
                       child: Center(
                         child: Text(
-                          '¿EMOCIONES?',
+                          '¿EMPATÍA?',
                           style: TextStyle(
                             color: Color.fromRGBO(255, 247, 240, 1.0),
                             fontSize: 25,
@@ -108,13 +120,13 @@ class MenuConceptosState extends State<MenuConceptos> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _isButton2Enabled ? _onSecondButtonPressed : null,
+                  onTap: _secondButtonE ? _onSecondBtnPressedE : null,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     margin:
                         const EdgeInsets.only(bottom: 15, right: 38, left: 38),
                     decoration: BoxDecoration(
-                      color: _isButton2Enabled
+                      color: _secondButtonE
                           ? const Color.fromARGB(255, 149, 11, 73)
                           : const Color.fromARGB(255, 48, 48, 48),
                       border: const Border.symmetric(
@@ -129,10 +141,10 @@ class MenuConceptosState extends State<MenuConceptos> {
                       padding: EdgeInsets.all(15),
                       child: Center(
                         child: Text(
-                          '¿QUÉ EMOCIONES TENGO?',
+                          '¿CÓMO SER\n EMPÁTICO?',
                           style: TextStyle(
                             color: Color.fromRGBO(255, 247, 240, 1.0),
-                            fontSize: 22,
+                            fontSize: 25,
                             height: 1,
                             fontFamily: 'ArchivoBlack',
                           ),
@@ -143,12 +155,13 @@ class MenuConceptosState extends State<MenuConceptos> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _isButton3Enabled ? _onThirdButtonPressed : null,
+                  onTap: _thirdButtonE ? _onThirdBtnPressedE : null,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(right: 38, left: 38),
+                    margin:
+                        const EdgeInsets.only(bottom: 15, right: 38, left: 38),
                     decoration: BoxDecoration(
-                      color: _isButton3Enabled
+                      color: _thirdButtonE
                           ? const Color.fromARGB(255, 149, 11, 73)
                           : const Color.fromARGB(255, 48, 48, 48),
                       border: const Border.symmetric(
@@ -163,10 +176,44 @@ class MenuConceptosState extends State<MenuConceptos> {
                       padding: EdgeInsets.all(20),
                       child: Center(
                         child: Text(
-                          '¿CÓMO PUEDO CONTROLAR MIS EMOCIONES?',
+                          '¿DONDE PUEDO PRESENCIARLA?',
                           style: TextStyle(
                             color: Color.fromRGBO(255, 247, 240, 1.0),
-                            fontSize: 22,
+                            fontSize: 25,
+                            height: 1,
+                            fontFamily: 'ArchivoBlack',
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: _fourthButtonE ? _onFourthBtnPressedE : null,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(right: 38, left: 38),
+                    decoration: BoxDecoration(
+                      color: _thirdButtonE
+                          ? const Color.fromARGB(255, 149, 11, 73)
+                          : const Color.fromARGB(255, 48, 48, 48),
+                      border: const Border.symmetric(
+                        horizontal: BorderSide(
+                            color: Color.fromARGB(255, 28, 40, 81), width: 3),
+                        vertical: BorderSide(
+                            color: Color.fromARGB(255, 28, 40, 81), width: 3),
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(18)),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                        child: Text(
+                          'ESTRATEGIAS PARA DESARROLLARLA',
+                          style: TextStyle(
+                            color: Color.fromRGBO(255, 247, 240, 1.0),
+                            fontSize: 25,
                             height: 1,
                             fontFamily: 'ArchivoBlack',
                           ),
@@ -185,8 +232,8 @@ class MenuConceptosState extends State<MenuConceptos> {
   }
 }
 
-class EmocionesView extends StatelessWidget {
-  const EmocionesView({super.key});
+class EmpatiaVista extends StatelessWidget {
+  const EmpatiaVista({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -196,63 +243,64 @@ class EmocionesView extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: PageView(
             children: [
-              Image.asset('assets/img/modulo1/32.jpg', fit: BoxFit.cover),
-              Image.asset('assets/img/modulo1/33.jpg', fit: BoxFit.cover),
-              Image.asset('assets/img/modulo1/34.jpg', fit: BoxFit.cover),
-              const EmpatiaView()
+              Image.asset('assets/img/modulo1/37.jpg', fit: BoxFit.cover),
             ],
           ),
         ));
   }
 }
 
-class EmpatiaView extends StatelessWidget {
-  const EmpatiaView({super.key});
+class SegundaVista extends StatelessWidget {
+  const SegundaVista({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
-        body: Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Image.asset(
-                'assets/img/modulo1/35.jpg',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 45,
-                      width: 140,
-                      margin: const EdgeInsets.only(bottom: 40),
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 28, 40, 81),
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'INICIAR',
-                          style: TextStyle(
-                            color: Color.fromRGBO(255, 247, 240, 1.0),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            fontFamily: 'PTSans',
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+        body: Align(
+          alignment: Alignment.bottomCenter,
+          child: PageView(
+            children: [
+              Image.asset('assets/img/modulo1/39.jpg', fit: BoxFit.cover),
+            ],
+          ),
+        ));
+  }
+}
+
+class TerceraVista extends StatelessWidget {
+  const TerceraVista({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
+        body: Align(
+          alignment: Alignment.bottomCenter,
+          child: PageView(
+            children: [
+              Image.asset('assets/img/modulo1/41.jpg', fit: BoxFit.cover),
+              Image.asset('assets/img/modulo1/42.jpg', fit: BoxFit.cover),
+            ],
+          ),
+        ));
+  }
+}
+
+class CuartaVista extends StatelessWidget {
+  const CuartaVista({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
+        body: Align(
+          alignment: Alignment.bottomCenter,
+          child: PageView(
+            children: [
+              Image.asset('assets/img/modulo1/44.jpg', fit: BoxFit.cover),
+            ],
+          ),
         ));
   }
 }

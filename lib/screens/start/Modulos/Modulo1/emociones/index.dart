@@ -40,7 +40,7 @@ class _IndexEmocionesState extends State<IndexEmociones> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       prefs.setBool(key, true);
-      _loadButtonStates(); // Reload button states
+      _loadButtonStates();
     });
   }
 

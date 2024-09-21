@@ -1,4 +1,4 @@
-import 'package:emocioipe/screens/start/Modulos/Modulo1/menu_conceptos.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo1/emociones/menu_conceptos.dart';
 import 'package:flutter/material.dart';
 
 class ConceptosI extends StatefulWidget {
@@ -36,8 +36,8 @@ class _ConceptosIState extends State<ConceptosI> {
                             builder: (context) => const MenuConceptos()));
                   },
                   child: Container(
-                    height: 45,
-                    width: 140,
+                    height: 50,
+                    width: 170,
                     margin: const EdgeInsets.only(bottom: 40),
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 28, 40, 81),
@@ -49,7 +49,7 @@ class _ConceptosIState extends State<ConceptosI> {
                         style: TextStyle(
                           color: Color.fromRGBO(255, 247, 240, 1.0),
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 20,
                           fontFamily: 'PTSans',
                         ),
                       ),
