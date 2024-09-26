@@ -25,12 +25,13 @@ class _SegundaQUIZState extends State<SegundaQUIZ> {
               child: Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(bottom: 5),
+                    width: MediaQuery.of(context).size.width - 25,
                     child: Image.asset('assets/img/modulo1/juego/titulo.jpg'),
                   ),
                   Container(
-                    margin: const EdgeInsets.all(15),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                     child: Row(
                       children: [
                         Container(
@@ -85,7 +86,8 @@ class _SegundaQUIZState extends State<SegundaQUIZ> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.all(15),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                     child: Row(
                       children: [
                         SizedBox(
@@ -140,7 +142,8 @@ class _SegundaQUIZState extends State<SegundaQUIZ> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.all(15),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                     child: Row(
                       children: [
                         Container(

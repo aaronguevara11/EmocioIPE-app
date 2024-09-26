@@ -215,7 +215,7 @@ class Comunicacion extends StatelessWidget {
   }
 
   Widget _buildImage(String assetPath, BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Image.asset(
@@ -247,7 +247,7 @@ class Trabajo extends StatelessWidget {
   }
 
   Widget _buildImage(String assetPath, BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Image.asset(
@@ -280,7 +280,7 @@ class Liderazgo extends StatelessWidget {
   }
 
   Widget _buildImage(String assetPath, BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Image.asset(
@@ -311,7 +311,7 @@ class Resolucion extends StatelessWidget {
   }
 
   Widget _buildImage(String assetPath, BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Image.asset(

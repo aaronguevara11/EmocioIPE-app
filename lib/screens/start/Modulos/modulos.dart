@@ -1,5 +1,6 @@
 import 'package:emocioipe/screens/start/Modulos/Modulo1/index.dart';
 import 'package:emocioipe/screens/start/Modulos/Modulo2/index.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo3/index.dart';
 import 'package:flutter/material.dart';
 
 class Modulos extends StatefulWidget {
@@ -74,23 +75,31 @@ class _ModulosState extends State<Modulos> {
                 ),
               ),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 15,
-              height: MediaQuery.of(context).size.height / 6,
-              child: const Card(
-                margin: EdgeInsets.all(12),
-                color: Color.fromARGB(255, 198, 204, 112),
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Center(
-                      child: Text(
-                    'MÓDULO',
-                    style: TextStyle(
-                        fontFamily: 'PTSans',
-                        fontSize: 35,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  )),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const IndexModulo3()));
+              },
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width - 15,
+                height: MediaQuery.of(context).size.height / 6,
+                child: const Card(
+                  margin: EdgeInsets.all(12),
+                  color: Color.fromARGB(255, 198, 204, 112),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Center(
+                        child: Text(
+                      'MÓDULO',
+                      style: TextStyle(
+                          fontFamily: 'PTSans',
+                          fontSize: 35,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    )),
+                  ),
                 ),
               ),
             ),
