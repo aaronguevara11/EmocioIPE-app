@@ -11,7 +11,7 @@ class EmotiQuiz extends StatefulWidget {
 }
 
 class _EmotiQuizState extends State<EmotiQuiz> {
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _currentPage = 0;
 
   @override
@@ -27,7 +27,6 @@ class _EmotiQuizState extends State<EmotiQuiz> {
               _currentPage = page;
             });
 
-            // Redirige si es la última página y el usuario intenta deslizar
             if (page == 2) {
               Future.delayed(const Duration(milliseconds: 300), () {
                 _pageController.nextPage(

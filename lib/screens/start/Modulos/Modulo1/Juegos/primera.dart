@@ -25,7 +25,7 @@ class _PrimeraQUIZState extends State<PrimeraQUIZ> {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 10),
+                    margin: const EdgeInsets.only(bottom: 10),
                     width: MediaQuery.of(context).size.width,
                     child: Image.asset('assets/img/modulo1/juego/titulo.jpg'),
                   ),

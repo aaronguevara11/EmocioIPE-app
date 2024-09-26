@@ -57,6 +57,7 @@ flutter:
 
   assets:
     - assets/img/modulo1/
+    - assets/img/modulo2/
     - assets/img/modulo1/juego/
 
   fonts:
