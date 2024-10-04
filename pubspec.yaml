@@ -56,8 +56,10 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/img/
     - assets/img/modulo1/
     - assets/img/modulo2/
+    - assets/img/modulo2/Juegos/
     - assets/img/modulo3/
     - assets/img/modulo4/
     - assets/img/modulo1/juego/

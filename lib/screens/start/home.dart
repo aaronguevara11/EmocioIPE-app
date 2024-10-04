@@ -1,4 +1,5 @@
 import 'package:emocioipe/screens/start/Modulos/modulos.dart';
+import 'package:emocioipe/screens/start/Perfil/perfil.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomeState extends State<Home> {
           },
           children: const [
             Modulos(),
-            Center(child: Text('Perfil Page')),
+            Perfil(),
           ],
         ),
       ),
