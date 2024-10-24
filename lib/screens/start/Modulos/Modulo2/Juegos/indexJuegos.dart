@@ -1,3 +1,7 @@
+import 'package:emocioipe/screens/start/Modulos/Modulo2/Juegos/Juego2.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo2/Juegos/liderazgo.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo2/Juegos/resolucion.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo2/menu_conceptos.dart';
 import 'package:flutter/material.dart';
 
 class IndexJuegos2 extends StatefulWidget {
@@ -80,7 +84,7 @@ class _IndexJuegos2State extends State<IndexJuegos2> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Caso1()),
+                                builder: (context) => const JuegoTrabajo()),
                           );
                         },
                         child: SizedBox(
@@ -110,7 +114,7 @@ class _IndexJuegos2State extends State<IndexJuegos2> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Caso1()),
+                                builder: (context) => const LiderazgoJuego()),
                           );
                         },
                         child: SizedBox(
@@ -141,7 +145,8 @@ class _IndexJuegos2State extends State<IndexJuegos2> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Caso1()),
+                                builder: (context) =>
+                                    const ResolucionConflictos()),
                           );
                         },
                         child: SizedBox(
