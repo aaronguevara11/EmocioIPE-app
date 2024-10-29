@@ -1,48 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ResolucionConflictos extends StatefulWidget {
-  const ResolucionConflictos({super.key});
+class IdentiPlay extends StatefulWidget {
+  const IdentiPlay({super.key});
 
   @override
-  State<ResolucionConflictos> createState() => _ResolucionConflictosState();
+  State<IdentiPlay> createState() => _IdentiPlayState();
 }
 
-class _ResolucionConflictosState extends State<ResolucionConflictos> {
+class _IdentiPlayState extends State<IdentiPlay> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
-      body: PageView(
-        children: [
-          _buildImage('assets/img/modulo2/Juegos/22.jfif', context),
-          const Historia2(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildImage(String assetPath, BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Image.asset(
-        assetPath,
-        fit: BoxFit.contain,
-        width: double.infinity,
-        height: double.infinity,
-      ),
-    );
-  }
+  State<IdentiPlay> createState() => _Historia2State();
 }
 
-class Historia2 extends StatefulWidget {
-  const Historia2({super.key});
-
-  @override
-  State<Historia2> createState() => _Historia2State();
-}
-
-class _Historia2State extends State<Historia2> {
+class _Historia2State extends State<IdentiPlay> {
   int? selectedOption;
   bool answered = false;
   String feedbackMessage = "";
@@ -187,33 +157,6 @@ class _Historia2State extends State<Historia2> {
                   ),
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Resultado extends StatefulWidget {
-  const Resultado({super.key});
-
-  @override
-  State<Resultado> createState() => _ResultadoState();
-}
-
-class _ResultadoState extends State<Resultado> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Image.asset(
-              "assets/img/modulo2/Juegos/24.png",
-              fit: BoxFit.cover,
             ),
           ),
         ],
