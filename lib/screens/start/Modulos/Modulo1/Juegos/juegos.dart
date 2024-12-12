@@ -30,7 +30,7 @@ class IndexJuegosState extends State<IndexJuegos> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const EmotiQuiz()));

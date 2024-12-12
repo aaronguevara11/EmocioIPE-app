@@ -8,11 +8,6 @@ class IdentiPlay extends StatefulWidget {
 }
 
 class _IdentiPlayState extends State<IdentiPlay> {
-  @override
-  State<IdentiPlay> createState() => _Historia2State();
-}
-
-class _Historia2State extends State<IdentiPlay> {
   int? selectedOption;
   bool answered = false;
   String feedbackMessage = "";
@@ -160,6 +155,25 @@ class _Historia2State extends State<IdentiPlay> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Resultado extends StatelessWidget {
+  const Resultado({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Resultado'),
+      ),
+      body: const Center(
+        child: Text(
+          '¡Gracias por jugar!',
+          style: TextStyle(fontSize: 20),
+        ),
       ),
     );
   }
