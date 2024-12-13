@@ -1,7 +1,6 @@
 import 'package:emocioipe/screens/start/Modulos/Modulo2/Juegos/Juego2.dart';
 import 'package:emocioipe/screens/start/Modulos/Modulo2/Juegos/liderazgo.dart';
 import 'package:emocioipe/screens/start/Modulos/Modulo2/Juegos/resolucion.dart';
-import 'package:emocioipe/screens/start/Modulos/Modulo2/menu_conceptos.dart';
 import 'package:flutter/material.dart';
 
 class IndexJuegos2 extends StatefulWidget {

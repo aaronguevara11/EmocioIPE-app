@@ -1,3 +1,4 @@
+import 'package:emocioipe/screens/registro.dart';
 import 'package:emocioipe/screens/start/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -188,7 +189,13 @@ class _Login extends State<LoginVentana> {
                           ),
                           const SizedBox(height: 15),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () async {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegistroIndex()));
+                            },
                             child: Container(
                               height: 50,
                               decoration: BoxDecoration(

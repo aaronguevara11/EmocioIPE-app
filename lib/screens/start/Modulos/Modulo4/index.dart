@@ -1,5 +1,5 @@
-import 'package:emocioipe/screens/start/Modulos/Modulo1/Juegos/juegos.dart';
-import 'package:emocioipe/screens/start/Modulos/Modulo4/inicio.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo4/Juegos/indexJuego4.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo4/Conceptos/menu.dart';
 import 'package:flutter/material.dart';
 
 class IndexModulo4 extends StatefulWidget {
@@ -18,7 +18,7 @@ class _IndexModulo4State extends State<IndexModulo4> {
           Align(
             alignment: Alignment.center,
             child: Image.asset(
-              'assets/img/modulo3/1.png',
+              'assets/img/modulo4/8.jpeg',
               fit: BoxFit.cover,
             ),
           ),
@@ -35,7 +35,7 @@ class _IndexModulo4State extends State<IndexModulo4> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const InicioModulo4()),
+                                builder: (context) => const MenuConceptos4()),
                           );
                         },
                         child: SizedBox(
@@ -83,7 +83,7 @@ class _IndexModulo4State extends State<IndexModulo4> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const IndexJuegos()),
+                                builder: (context) => const IndexJuegos4()),
                           );
                         },
                         child: SizedBox(

@@ -1,14 +1,14 @@
-import 'package:emocioipe/screens/start/Modulos/Modulo4/menu.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo4/Juegos/Ordena%20Ya/primeraOrdenalo.dart';
 import 'package:flutter/material.dart';
 
-class InicioModulo4 extends StatefulWidget {
-  const InicioModulo4({super.key});
+class OrdenaYa extends StatefulWidget {
+  const OrdenaYa({super.key});
 
   @override
-  State<InicioModulo4> createState() => _InicioModulo4State();
+  State<OrdenaYa> createState() => _OrdenaYaState();
 }
 
-class _InicioModulo4State extends State<InicioModulo4> {
+class _OrdenaYaState extends State<OrdenaYa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class _InicioModulo4State extends State<InicioModulo4> {
           Align(
             alignment: Alignment.center,
             child: Image.asset(
-              'assets/img/modulo1/3.jpg',
+              'assets/img/modulo4/9.jpg',
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -33,7 +33,7 @@ class _InicioModulo4State extends State<InicioModulo4> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MenuConceptos4()));
+                            builder: (context) => const PrimeraOrdenalo()));
                   },
                   child: Container(
                     height: 50,
