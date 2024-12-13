@@ -24,7 +24,7 @@ class _IdentiPlayState extends State<IdentiPlay> {
       });
 
       Future.delayed(const Duration(seconds: 1), () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const Pregunta4(),
@@ -219,7 +219,7 @@ class _Pregunta4State extends State<Pregunta4> {
       });
 
       Future.delayed(const Duration(seconds: 1), () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const Pregunta2(),
@@ -364,7 +364,7 @@ class _Pregunta2State extends State<Pregunta2> {
       });
 
       Future.delayed(const Duration(seconds: 1), () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const Pregunta5(),
@@ -565,7 +565,7 @@ class _Pregunta3State extends State<Pregunta3> {
       });
 
       Future.delayed(const Duration(seconds: 1), () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const Resultado(),
@@ -781,7 +781,7 @@ class _Pregunta5State extends State<Pregunta5> {
             : "¡Incorrecto :(!";
       });
       Future.delayed(const Duration(seconds: 1), () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const Pregunta3(),
