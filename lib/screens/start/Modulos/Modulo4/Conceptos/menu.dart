@@ -18,9 +18,8 @@ class _MenuConceptos4State extends State<MenuConceptos4> {
           Align(
             alignment: Alignment.center,
             child: Image.asset(
-              'assets/img/modulo4/8.jpg',
+              'assets/img/modulo4/8.jpeg',
               fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
             ),
           ),

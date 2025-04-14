@@ -13,6 +13,7 @@ class _IndexModulo3State extends State<IndexModulo3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Align(

@@ -37,7 +37,7 @@ class _ModulosState extends State<Modulos> {
                     padding: EdgeInsets.all(16.0),
                     child: Center(
                         child: Text(
-                      'MÓDULO',
+                      'MÓDULO I',
                       style: TextStyle(
                           fontFamily: 'PTSans',
                           fontSize: 35,
@@ -65,7 +65,7 @@ class _ModulosState extends State<Modulos> {
                     padding: EdgeInsets.all(16.0),
                     child: Center(
                         child: Text(
-                      'MÓDULO',
+                      'MÓDULO II',
                       style: TextStyle(
                           fontFamily: 'PTSans',
                           fontSize: 35,
@@ -93,7 +93,7 @@ class _ModulosState extends State<Modulos> {
                     padding: EdgeInsets.all(16.0),
                     child: Center(
                         child: Text(
-                      'MÓDULO',
+                      'MÓDULO III',
                       style: TextStyle(
                           fontFamily: 'PTSans',
                           fontSize: 35,
@@ -121,7 +121,7 @@ class _ModulosState extends State<Modulos> {
                     padding: EdgeInsets.all(16.0),
                     child: Center(
                         child: Text(
-                      'MÓDULO',
+                      'MÓDULO IV',
                       style: TextStyle(
                           fontFamily: 'PTSans',
                           fontSize: 35,

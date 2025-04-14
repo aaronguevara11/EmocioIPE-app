@@ -11,7 +11,7 @@ class _EstresIndex4State extends State<EstresIndex4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Stack(
         children: [
           Align(
@@ -19,8 +19,6 @@ class _EstresIndex4State extends State<EstresIndex4> {
             child: Image.asset(
               'assets/img/modulo4/20.jpg',
               fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
             ),
           ),
           Center(

@@ -13,7 +13,7 @@ class _IndexModulo2State extends State<IndexModulo2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Stack(
         children: [
           Align(
@@ -21,6 +21,7 @@ class _IndexModulo2State extends State<IndexModulo2> {
             child: Image.asset(
               'assets/img/modulo2/2.png',
               fit: BoxFit.cover,
+              height: double.infinity,
             ),
           ),
           Center(
@@ -28,7 +29,7 @@ class _IndexModulo2State extends State<IndexModulo2> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.60,
+                  height: MediaQuery.of(context).size.height * 0.650,
                   child: Column(
                     children: [
                       GestureDetector(
@@ -172,8 +173,6 @@ class Juegos extends StatelessWidget {
             child: Image.asset(
               'assets/img/modulo2/Juegos/inicio.png',
               fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
             ),
           ),
           Center(

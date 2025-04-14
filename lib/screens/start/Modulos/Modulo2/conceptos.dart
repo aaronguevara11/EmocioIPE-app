@@ -12,15 +12,14 @@ class _Conceptos2State extends State<Conceptos2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Stack(
         children: [
           Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.topCenter,
             child: Image.asset(
               'assets/img/modulo2/1.png',
               fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
             ),
           ),

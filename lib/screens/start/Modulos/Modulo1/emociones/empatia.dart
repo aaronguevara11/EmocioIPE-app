@@ -105,13 +105,13 @@ class _EmpatiaState extends State<Empatia> {
                       borderRadius: BorderRadius.all(Radius.circular(18)),
                     ),
                     child: const Padding(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(15),
                       child: Center(
                         child: Text(
                           '¿EMPATÍA?',
                           style: TextStyle(
                             color: Color.fromRGBO(255, 247, 240, 1.0),
-                            fontSize: 25,
+                            fontSize: 22,
                             fontFamily: 'ArchivoBlack',
                           ),
                         ),
@@ -144,7 +144,7 @@ class _EmpatiaState extends State<Empatia> {
                           '¿CÓMO SER\n EMPÁTICO?',
                           style: TextStyle(
                             color: Color.fromRGBO(255, 247, 240, 1.0),
-                            fontSize: 25,
+                            fontSize: 22,
                             height: 1,
                             fontFamily: 'ArchivoBlack',
                           ),
@@ -173,13 +173,13 @@ class _EmpatiaState extends State<Empatia> {
                       borderRadius: const BorderRadius.all(Radius.circular(18)),
                     ),
                     child: const Padding(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(15),
                       child: Center(
                         child: Text(
                           '¿DONDE PUEDO PRESENCIARLA?',
                           style: TextStyle(
                             color: Color.fromRGBO(255, 247, 240, 1.0),
-                            fontSize: 25,
+                            fontSize: 22,
                             height: 1,
                             fontFamily: 'ArchivoBlack',
                           ),
@@ -207,13 +207,13 @@ class _EmpatiaState extends State<Empatia> {
                       borderRadius: const BorderRadius.all(Radius.circular(18)),
                     ),
                     child: const Padding(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(15),
                       child: Center(
                         child: Text(
                           'ESTRATEGIAS PARA DESARROLLARLA',
                           style: TextStyle(
                             color: Color.fromRGBO(255, 247, 240, 1.0),
-                            fontSize: 25,
+                            fontSize: 20,
                             height: 1,
                             fontFamily: 'ArchivoBlack',
                           ),

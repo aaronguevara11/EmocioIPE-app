@@ -14,15 +14,15 @@ class _IndexJuegos2State extends State<IndexJuegos2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Image.asset(
               'assets/img/modulo2/Juegos/menu.png',
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
             ),
           ),
           Center(
@@ -103,6 +103,7 @@ class _IndexJuegos2State extends State<IndexJuegos2> {
                                       height: 0.8,
                                       color: Color.fromRGBO(255, 247, 240, 1.0),
                                     ),
+                                    textAlign: TextAlign.center,
                                   )),
                             ),
                           ),

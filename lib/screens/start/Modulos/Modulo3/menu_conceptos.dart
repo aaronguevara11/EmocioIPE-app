@@ -14,11 +14,10 @@ class _MenuConceptos3State extends State<MenuConceptos3> {
       body: Stack(
         children: [
           Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Image.asset(
               'assets/img/modulo3/2.png',
               fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
             ),
           ),
@@ -160,15 +159,15 @@ class Estres extends StatelessWidget {
 
   Widget _buildImage(String assetPath, BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Image.asset(
-        assetPath,
-        fit: BoxFit.contain,
-        width: double.infinity,
-        height: double.infinity,
-      ),
-    );
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Align(
+          alignment: Alignment.center,
+          child: Image.asset(
+            assetPath,
+            fit: BoxFit.contain,
+          ),
+        ));
   }
 }
 
@@ -192,14 +191,14 @@ class Ansiedad extends StatelessWidget {
 
   Widget _buildImage(String assetPath, BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Image.asset(
-        assetPath,
-        fit: BoxFit.contain,
-        width: double.infinity,
-        height: double.infinity,
-      ),
-    );
+        height: MediaQuery.of(context).size.height,
+        child: Align(
+          alignment: Alignment.center,
+          child: Image.asset(
+            assetPath,
+            fit: BoxFit.contain,
+            height: MediaQuery.of(context).size.height,
+          ),
+        ));
   }
 }

@@ -11,7 +11,7 @@ class _AnsiedadIndex4State extends State<AnsiedadIndex4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Stack(
         children: [
           Align(
@@ -19,7 +19,6 @@ class _AnsiedadIndex4State extends State<AnsiedadIndex4> {
             child: Image.asset(
               'assets/img/modulo4/17.jpg',
               fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
             ),
           ),
@@ -70,13 +69,13 @@ class AnsiedadView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: Align(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.center,
           child: PageView(
             children: [
-              Image.asset('assets/img/modulo4/18.jpg', fit: BoxFit.cover),
-              Image.asset('assets/img/modulo4/19.jpg', fit: BoxFit.cover),
+              Image.asset('assets/img/modulo4/18.jpg'),
+              Image.asset('assets/img/modulo4/19.jpg'),
             ],
           ),
         ));

@@ -1,26 +1,59 @@
-import 'package:emocioipe/screens/login.dart';
+import 'package:emocioipe/screens/start/home.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'screens/login.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Emocio IPE',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: LoginVentana(),
-        ),
-      ),
+    return FutureBuilder(
+      future: _checkLoginStatus(),
+      builder: (context, AsyncSnapshot<String?> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'EmocioIPE',
+            home: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        } else {
+          final userType = snapshot.data;
+
+          Widget homeScreen;
+
+          if (userType == 'valido') {
+            homeScreen = Home();
+          } else {
+            homeScreen = LoginVentana();
+          }
+
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'LectoYA',
+            home: homeScreen,
+          );
+        }
+      },
     );
+  }
+
+  Future<String?> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null && !JwtDecoder.isExpired(token)) {
+      return 'valido';
+    }
+
+    return null;
   }
 }

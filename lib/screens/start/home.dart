@@ -1,6 +1,7 @@
 import 'package:emocioipe/screens/start/Modulos/modulos.dart';
 import 'package:emocioipe/screens/start/Perfil/perfil.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,6 +13,21 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentPage = 0;
   final PageController pageController = PageController();
+  bool isDocente = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserType();
+  }
+
+  // Leer la preferencia 'isDocente' desde SharedPreferences
+  void _loadUserType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDocente = prefs.getBool('isDocente') ?? false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +70,20 @@ class _HomeState extends State<Home> {
             unselectedFontSize: 2,
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.school),
+                icon: const Icon(Icons.school),
                 label: 'Módulos',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: const Icon(Icons.settings),
                 label: 'Perfil',
               ),
+              if (isDocente)
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.people),
+                  label: 'Docente',
+                ),
             ],
           ),
         ),
