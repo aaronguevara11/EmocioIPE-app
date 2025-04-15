@@ -1,3 +1,6 @@
+import 'package:emocioipe/Api/peticiones.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo2/Juegos/indexJuegos.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo2/menu_conceptos.dart';
 import 'package:flutter/material.dart';
 
 class ResolucionConflictos extends StatefulWidget {
@@ -46,8 +49,9 @@ class _Historia2State extends State<Historia2> {
   int? selectedOption;
   bool answered = false;
   String feedbackMessage = "";
+  PeticionesAPI _peticionesAPI = PeticionesAPI();
 
-  void _onDoubleTap(int option) {
+  void _onDoubleTap(int option) async {
     if (!answered) {
       setState(() {
         selectedOption = option;
@@ -55,8 +59,20 @@ class _Historia2State extends State<Historia2> {
         feedbackMessage = option == 3 ? "¡Correcto!" : "Incorrecto :(";
       });
 
+      final respuesta = selectedOption;
+      final trabajo = await _peticionesAPI.ResolucionEnviar(respuesta);
+
+      if (trabajo == "Error") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Error al enviar la respuesta.'),
+            backgroundColor: Color.fromARGB(255, 144, 36, 28),
+          ),
+        );
+      }
+
       Future.delayed(const Duration(seconds: 1), () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const Resultado(),
@@ -206,17 +222,27 @@ class _ResultadoState extends State<Resultado> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Image.asset(
-              "assets/img/modulo2/Juegos/24.png",
-              fit: BoxFit.cover,
-            ),
-          ),
-        ],
+      backgroundColor: Colors.white,
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const IndexJuegos2()),
+          );
+        },
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Image.asset(
+                "assets/img/modulo2/Juegos/24.png",
+                fit: BoxFit.contain,
+                width: MediaQuery.of(context).size.width,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

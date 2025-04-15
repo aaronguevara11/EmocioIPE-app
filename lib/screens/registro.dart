@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:emocioipe/Api/peticiones.dart';
 import 'package:emocioipe/screens/login.dart';
 import 'package:emocioipe/screens/start/home.dart';

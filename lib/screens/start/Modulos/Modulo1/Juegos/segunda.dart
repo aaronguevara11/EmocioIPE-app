@@ -1,3 +1,6 @@
+import 'package:emocioipe/Api/peticiones.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo1/Juegos/fin.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo1/index.dart';
 import 'package:flutter/material.dart';
 
 class SegundaQUIZ extends StatefulWidget {
@@ -12,6 +15,7 @@ class _SegundaQUIZState extends State<SegundaQUIZ> {
   TextEditingController firstController = TextEditingController();
   TextEditingController secondController = TextEditingController();
   TextEditingController thirdController = TextEditingController();
+  final PeticionesAPI _peticionesAPI = PeticionesAPI();
 
   @override
   Widget build(BuildContext context) {
@@ -22,44 +26,249 @@ class _SegundaQUIZState extends State<SegundaQUIZ> {
           builder: (context, constraints) {
             return SingleChildScrollView(
               child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
                 child: IntrinsicHeight(
-                  child: Center(
-                    child: Form(
-                      key: formkey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 5),
-                            width: MediaQuery.of(context).size.width,
-                            child: Image.asset(
-                                'assets/img/modulo1/juego/titulo.jpg'),
+                  child: Form(
+                    key: formkey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 190,
+                          child: Image.asset(
+                              'assets/img/modulo1/juego/titulo.jpg'),
+                        ),
+                        // Primer bloque
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Image.asset(
+                                    'assets/img/modulo1/juego/img4.jpg'),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 183, 15, 91),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Center(
+                                          child: Text(
+                                            '¿Cómo sabes que emoción está sintiendo?',
+                                            style: TextStyle(
+                                              height: 0.9,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: TextFormField(
+                                        controller: firstController,
+                                        keyboardType: TextInputType.text,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Escriba una respuesta';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
-                          _buildQuestionBlock(
-                            context,
-                            image: 'assets/img/modulo1/juego/img4.jpg',
-                            question: '¿Cómo sabes que emoción está sintiendo?',
-                            controller: firstController,
-                            imageLeft: true,
+                        ),
+                        // Segundo bloque
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 183, 15, 91),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(15),
+                                        child: Center(
+                                          child: Text(
+                                            '¿Qué conoces sobre la emoción de la imagen?',
+                                            style: TextStyle(
+                                              height: 0.9,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: TextFormField(
+                                        controller: secondController,
+                                        keyboardType: TextInputType.text,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Escriba una respuesta';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(left: 10),
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Image.asset(
+                                    'assets/img/modulo1/juego/img5.jpg'),
+                              ),
+                            ],
                           ),
-                          _buildQuestionBlock(
-                            context,
-                            image: 'assets/img/modulo1/juego/img5.jpg',
-                            question:
-                                '¿Qué conoces sobre la emoción de la imagen?',
-                            controller: secondController,
-                            imageLeft: false,
+                        ),
+                        // Tercer bloque
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Image.asset(
+                                    'assets/img/modulo1/juego/img6.jpg'),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 183, 15, 91),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(15),
+                                        child: Center(
+                                          child: Text(
+                                            'Describe la emoción de la imagen',
+                                            style: TextStyle(
+                                              height: 0.9,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: TextFormField(
+                                        controller: thirdController,
+                                        keyboardType: TextInputType.text,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Escriba una respuesta';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          _buildQuestionBlock(
-                            context,
-                            image: 'assets/img/modulo1/juego/img6.jpg',
-                            question: 'Describe la emoción de la imagen',
-                            controller: thirdController,
-                            imageLeft: true,
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            if (formkey.currentState!.validate()) {
+                              final String respuesta1 = firstController.text;
+                              final String respuesta2 = secondController.text;
+                              final String respuesta3 = thirdController.text;
+
+                              final response = await _peticionesAPI.SegundaQuiz(
+                                  respuesta1, respuesta2, respuesta3);
+
+                              if (response == "Error") {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Hubo un error'),
+                                    backgroundColor:
+                                        Color.fromARGB(255, 80, 17, 13),
+                                  ),
+                                );
+                              } else {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PantallaImagen()),
+                                  (Route<dynamic> route) => false,
+                                );
+                              }
+                            }
+                          },
+                          child: Container(
+                            height: 50,
+                            width: 170,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 28, 40, 81),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'CONTINUAR',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(255, 247, 240, 1.0),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  fontFamily: 'PTSans',
+                                ),
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -67,72 +276,6 @@ class _SegundaQUIZState extends State<SegundaQUIZ> {
             );
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildQuestionBlock(BuildContext context,
-      {required String image,
-      required String question,
-      required TextEditingController controller,
-      required bool imageLeft}) {
-    final imageWidget = Container(
-      margin: imageLeft
-          ? const EdgeInsets.only(right: 10)
-          : const EdgeInsets.only(left: 10),
-      width: MediaQuery.of(context).size.width / 3,
-      child: Image.asset(image),
-    );
-
-    final questionWidget = SizedBox(
-      width: MediaQuery.of(context).size.width / 2,
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 183, 15, 91),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Center(
-                child: Text(
-                  question,
-                  style: const TextStyle(
-                    height: 0.9,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: TextFormField(
-              controller: controller,
-              keyboardType: TextInputType.text,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Escriba una respuesta';
-                }
-                return null;
-              },
-            ),
-          )
-        ],
-      ),
-    );
-
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: imageLeft
-            ? [imageWidget, questionWidget]
-            : [questionWidget, imageWidget],
       ),
     );
   }

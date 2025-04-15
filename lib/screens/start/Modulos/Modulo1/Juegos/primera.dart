@@ -1,6 +1,6 @@
 import 'package:emocioipe/Api/peticiones.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo1/Juegos/segunda.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PrimeraQUIZ extends StatefulWidget {
   const PrimeraQUIZ({super.key});
@@ -35,11 +35,9 @@ class _PrimeraQUIZState extends State<PrimeraQUIZ> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          height: 190,
                           child: Image.asset(
                               'assets/img/modulo1/juego/titulo.jpg'),
                         ),
-                        // Primer bloque
                         Container(
                           margin: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 15),
@@ -98,7 +96,6 @@ class _PrimeraQUIZState extends State<PrimeraQUIZ> {
                             ],
                           ),
                         ),
-                        // Segundo bloque
                         Container(
                           margin: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 15),
@@ -157,7 +154,6 @@ class _PrimeraQUIZState extends State<PrimeraQUIZ> {
                             ],
                           ),
                         ),
-                        // Tercer bloque
                         Container(
                           margin: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 15),
@@ -240,7 +236,7 @@ class _PrimeraQUIZState extends State<PrimeraQUIZ> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const PrimeraQUIZ()));
+                                          const SegundaQUIZ()));
                             }
                           },
                           child: Container(
