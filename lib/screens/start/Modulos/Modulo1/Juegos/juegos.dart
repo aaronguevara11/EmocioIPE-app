@@ -1,4 +1,5 @@
 import 'package:emocioipe/screens/start/Modulos/Modulo1/Juegos/emotiquiz.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo1/Juegos/primera.dart';
 import 'package:flutter/material.dart';
 
 class IndexJuegos extends StatefulWidget {
@@ -21,7 +22,6 @@ class IndexJuegosState extends State<IndexJuegos> {
               'assets/img/modulo1/46.jpg',
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
             ),
           ),
           Center(
@@ -33,7 +33,7 @@ class IndexJuegosState extends State<IndexJuegos> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const EmotiQuiz()));
+                            builder: (context) => const PrimeraQUIZ()));
                   },
                   child: Container(
                     height: 50,

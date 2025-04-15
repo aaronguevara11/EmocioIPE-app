@@ -129,4 +129,65 @@ class PeticionesAPI {
     }
     return "";
   }
+
+  Future<Object> PrimeraQuiz(respuesta1, respuesta2, respuesta3) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.post(
+        'https://emocioipe.onrender.com/app/emotiquiz/enviarRespuesta',
+        data: {
+          'idNivel': 1,
+          'respuesta1': respuesta1,
+          'respuesta2': respuesta2,
+          'respuesta3': respuesta3,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data.toString();
+
+      if (result == "Error") {
+        return "Error";
+      }
+      print("Enviado correctamente");
+    } on DioException catch (e) {
+      print(e);
+    }
+    return "";
+  }
+
+  Future<Object> SegundaQuiz(
+      idNivel, respuesta1, respuesta2, respuesta3) async {
+    try {
+      final response = await dio.post(
+        'https://emocioipe.onrender.com/app/emotiquiz/enviarRespuesta',
+        data: {
+          'idNivel': 2,
+          'respuesta1': respuesta1,
+          'respuesta2': respuesta2,
+          'respuesta3': respuesta3,
+        },
+      );
+      var result = response.data.toString();
+
+      if (result == "{message: Datos incorrectos}") {
+        return "Datos incorrectos";
+      } else if (response.statusCode == 500) {
+        return "Error en el servidor";
+      } else {
+        final token = response.data['token'];
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', token);
+        return token;
+      }
+    } on DioException catch (e) {
+      print(e);
+    }
+    return "";
+  }
 }
