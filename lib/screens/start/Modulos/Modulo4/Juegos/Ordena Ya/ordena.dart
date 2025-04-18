@@ -21,7 +21,6 @@ class _OrdenaYaState extends State<OrdenaYa> {
               'assets/img/modulo4/9.jpg',
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
             ),
           ),
           Center(

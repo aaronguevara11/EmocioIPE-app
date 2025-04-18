@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:emocioipe/screens/start/Modulos/Modulo2/menu_conceptos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const backend = "https://emocioipe.onrender.com/app";
@@ -394,5 +393,93 @@ class PeticionesAPI {
       print(e);
     }
     return "";
+  }
+
+  Future<Object> ActuaEnviar(idNivel, emocion, respuesta) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.post(
+        'https://emocioipe.onrender.com/app/actua/enviarRespuesta',
+        data: {
+          'idNivel': idNivel,
+          'emocion': emocion,
+          'respuesta': respuesta,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data.toString();
+
+      if (result == "Error") {
+        return "Error";
+      }
+      print("Enviado correctamente");
+    } on DioException catch (e) {
+      print(e);
+    }
+    return "";
+  }
+
+  Future<Object> OrdenaloEnviar(
+      idNivel, orden1, orden2, orden3, orden4, orden5) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.post(
+        'https://emocioipe.onrender.com/app/ordenalo/enviarRespuesta',
+        data: {
+          'idNivel': idNivel,
+          'orden1': orden1,
+          'orden2': orden2,
+          'orden3': orden3,
+          'orden4': orden4,
+          'orden5': orden5,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data.toString();
+
+      if (result == "Error") {
+        return "Error";
+      }
+      print("Enviado correctamente");
+    } on DioException catch (e) {
+      print(e);
+    }
+    return "";
+  }
+
+  Future<List<Map<String, dynamic>>> VerPrimeraQuiz(int idNivel) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.get(
+        'https://emocioipe.onrender.com/app/emotiquiz/verRespuesta',
+        data: {
+          'idNivel': idNivel,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data['respuestas'] as List;
+      return result.map((e) => e as Map<String, dynamic>).toList();
+    } on DioException catch (e) {
+      print(e);
+    }
+    return [];
   }
 }

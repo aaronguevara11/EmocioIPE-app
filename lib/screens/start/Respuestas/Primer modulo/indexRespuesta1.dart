@@ -1,33 +1,17 @@
-import 'package:emocioipe/screens/start/Modulos/modulos.dart';
-import 'package:emocioipe/screens/start/Perfil/perfil.dart';
-import 'package:emocioipe/screens/start/Respuestas/respuestas.dart';
+import 'package:emocioipe/screens/start/Respuestas/Primer%20modulo/primera.dart';
+import 'package:emocioipe/screens/start/Respuestas/Primer%20modulo/segunda.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class IndexRespuesta1 extends StatefulWidget {
+  const IndexRespuesta1({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<IndexRespuesta1> createState() => _IndexRespuesta1State();
 }
 
-class _HomeState extends State<Home> {
+class _IndexRespuesta1State extends State<IndexRespuesta1> {
   int currentPage = 0;
   final PageController pageController = PageController();
-  bool isDocente = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserType();
-  }
-
-  void _loadUserType() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isDocente = prefs.getBool('isDocente') ?? false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +25,10 @@ class _HomeState extends State<Home> {
               currentPage = index;
             });
           },
-          children: const [Modulos(), Perfil(), IndexRespuestas()],
+          children: [
+            PrimeraRespuesta(idNivel: 1),
+            SegundaRespuesta(idNivel: 2)
+          ],
         ),
       ),
       bottomNavigationBar: ClipRRect(
@@ -59,28 +46,23 @@ class _HomeState extends State<Home> {
                 currentPage = index;
               });
             },
-            backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.black54,
+            backgroundColor: Colors.black,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white54,
             iconSize: 32,
             selectedFontSize: 2,
             unselectedFontSize: 2,
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            items: [
+            items: const [
               BottomNavigationBarItem(
-                icon: const Icon(Icons.school),
+                icon: Icon(Icons.format_list_numbered_outlined),
                 label: 'Módulos',
               ),
               BottomNavigationBarItem(
-                icon: const Icon(Icons.people),
+                icon: Icon(Icons.format_list_numbered_outlined),
                 label: 'Perfil',
               ),
-              if (isDocente)
-                const BottomNavigationBarItem(
-                  icon: Icon(Icons.format_align_center_outlined),
-                  label: 'Docente',
-                ),
             ],
           ),
         ),

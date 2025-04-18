@@ -21,7 +21,6 @@ class _ActuaYaState extends State<ActuaYa> {
               'assets/img/modulo4/20.jpg',
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
             ),
           ),
           Center(
@@ -30,7 +29,7 @@ class _ActuaYaState extends State<ActuaYa> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => PrimeraActua()));

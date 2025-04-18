@@ -1,15 +1,18 @@
-import 'package:emocioipe/screens/start/Modulos/Modulo4/Juegos/Ordena%20Ya/segunda.dart';
 import 'package:flutter/material.dart';
+import 'package:emocioipe/Api/peticiones.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo4/Juegos/Ordena%20Ya/segunda.dart';
 
 class PrimeraOrdenalo extends StatefulWidget {
   const PrimeraOrdenalo({Key? key}) : super(key: key);
 
   @override
-  State<PrimeraOrdenalo> createState() => _Ordenalo();
+  State<PrimeraOrdenalo> createState() => _OrdenaloState();
 }
 
-class _Ordenalo extends State<PrimeraOrdenalo> {
-  List<String> tarjetas = [
+class _OrdenaloState extends State<PrimeraOrdenalo> {
+  final PeticionesAPI _peticionesAPI = PeticionesAPI();
+
+  final List<String> tarjetasIniciales = [
     'Al final del día, se dio cuenta de que la pausa había sido clave para manejar su ansiedad y seguir adelante con confianza.',
     'Después de unos minutos de meditación, pudo volver a la tarea con una mente más clara y un enfoque renovado.',
     'Lucas se siente abrumado por la cantidad de tareas pendientes para la semana de exámenes.',
@@ -25,133 +28,145 @@ class _Ordenalo extends State<PrimeraOrdenalo> {
     'Al final del día, se dio cuenta de que la pausa había sido clave para manejar su ansiedad y seguir adelante con confianza.',
   ];
 
-  List<Color> colores = [
-    Colors.blue,
-    Colors.green,
-    Color.fromARGB(255, 210, 191, 21),
-    Colors.red,
-    Color.fromARGB(255, 24, 7, 84),
-  ];
+  late List<String> tarjetas;
+  late List<Color> colores;
 
   bool answered = false;
-  int currentImageIndex = 10; // Imagen inicial
+  int currentImageIndex = 10;
+
+  @override
+  void initState() {
+    super.initState();
+    tarjetas = List.from(tarjetasIniciales);
+    colores = [
+      Colors.blue,
+      Colors.green,
+      const Color.fromARGB(255, 210, 191, 21),
+      Colors.red,
+      const Color.fromARGB(255, 24, 7, 84),
+    ];
+  }
+
+  Future<void> _onSend() async {
+    if (answered) return;
+    setState(() {
+      answered = true;
+      if (tarjetas.join() == ordenCorrecto.join()) {
+        currentImageIndex = 11;
+      } else {
+        currentImageIndex = 12;
+        tarjetas = List.from(ordenCorrecto);
+        colores = ordenCorrecto.map(_getColorForCard).toList();
+      }
+    });
+
+    final resultado = await _peticionesAPI.OrdenaloEnviar(
+      1,
+      tarjetas[0],
+      tarjetas[1],
+      tarjetas[2],
+      tarjetas[3],
+      tarjetas[4],
+    );
+
+    if (resultado == 'Error') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error al enviar el orden.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Orden enviado correctamente.'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    }
+
+    await Future.delayed(const Duration(seconds: 1));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SegundaOrdenalo(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset(
-                  'assets/img/modulo4/$currentImageIndex.jpg',
-                  fit: BoxFit.cover,
-                ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Image.asset(
+                'assets/img/modulo4/$currentImageIndex.jpg',
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
-              ReorderableListView(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                onReorder: (int oldIndex, int newIndex) {
+            ),
+            Expanded(
+              flex: 5,
+              child: ReorderableListView(
+                onReorder: (oldIndex, newIndex) {
                   setState(() {
-                    if (newIndex > oldIndex) {
-                      newIndex -= 1;
-                    }
-                    final String item = tarjetas.removeAt(oldIndex);
-                    final Color color = colores.removeAt(oldIndex);
+                    if (newIndex > oldIndex) newIndex--;
+                    final item = tarjetas.removeAt(oldIndex);
+                    final col = colores.removeAt(oldIndex);
                     tarjetas.insert(newIndex, item);
-                    colores.insert(newIndex, color);
+                    colores.insert(newIndex, col);
                   });
                 },
-                children: List.generate(tarjetas.length, (index) {
-                  return _buildCard(tarjetas[index], colores[index]);
-                }),
+                children: List.generate(
+                  tarjetas.length,
+                  (index) => _buildCard(tarjetas[index], colores[index]),
+                ),
               ),
-              const SizedBox(height: 5),
-              GestureDetector(
-                onTap: () {
-                  _onDoubleTap();
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: ElevatedButton.icon(
+                onPressed: _onSend,
+                icon: const Icon(Icons.send_outlined),
+                label: const Text('Enviar orden'),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(27),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Icon(
-                      Icons.send_outlined,
-                      color: Colors.white,
-                    ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  void _onDoubleTap() {
-    if (!answered) {
-      setState(() {
-        answered = true;
-        if (tarjetas.join() == ordenCorrecto.join()) {
-          currentImageIndex = 11; // Cambiar a la imagen 11
-        } else {
-          currentImageIndex = 12; // Cambiar a la imagen 12
-          // Reorganizamos las tarjetas según el orden correcto
-          tarjetas = List<String>.from(ordenCorrecto);
-          colores = ordenCorrecto.map((e) => _getColorForCard(e)).toList();
-        }
-      });
-      Future.delayed(Duration(seconds: 4), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const SegundaOrdenalo()),
-        );
-      });
-    }
-  }
-
-  Color _getColorForCard(String card) {
-    int index = ordenCorrecto.indexOf(card);
+  Color _getColorForCard(String texto) {
+    final idx = ordenCorrecto.indexOf(texto);
     return [
-      Color.fromARGB(255, 210, 191, 21),
+      const Color.fromARGB(255, 210, 191, 21),
       Colors.red,
-      Color.fromARGB(255, 24, 7, 84),
+      const Color.fromARGB(255, 24, 7, 84),
       Colors.blue,
       Colors.green,
-    ][index];
+    ][idx];
   }
 
-  Widget _buildCard(String contenido, Color colorFondo) {
+  Widget _buildCard(String contenido, Color color) {
     return Card(
       key: ValueKey(contenido),
       elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: colorFondo,
-        ),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.all(13),
-            child: Text(
-              contenido,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+      color: color,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: ListTile(
+        title: Text(
+          contenido,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );

@@ -34,7 +34,7 @@ class _IndexJuegos4State extends State<IndexJuegos4> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const ActuaYa()),
