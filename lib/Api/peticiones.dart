@@ -367,7 +367,7 @@ class PeticionesAPI {
     return "";
   }
 
-  Future<Object> ResolucionEnviar(respuesta) async {
+  Future<Object> ResolucionEnviar(idNivel, respuesta) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
 
@@ -375,7 +375,7 @@ class PeticionesAPI {
       final response = await dio.post(
         'https://emocioipe.onrender.com/app/resolucion/enviarRespuesta',
         data: {
-          'idNivel': 1,
+          'idNivel': idNivel,
           'respuesta': respuesta,
         },
         options: Options(

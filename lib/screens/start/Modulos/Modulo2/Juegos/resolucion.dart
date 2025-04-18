@@ -51,6 +51,12 @@ class _Historia2State extends State<Historia2> {
   String feedbackMessage = "";
   PeticionesAPI _peticionesAPI = PeticionesAPI();
 
+  final List<String> opciones = [
+    'Establecer círculos restaurativos, donde los implicados y todos los afectados puedan poseer un espacio de diálogo para resarcir el daño ocasionado.',
+    'La nula intervención en conflictos, puesto que los responsables deben solucionar sus discrepancias sin ayuda de terceros.',
+    'Asignar castigos severos a los responsables, con el objetivo de que la situación presentada no vuelva a ocurrir.',
+  ];
+
   void _onDoubleTap(int option) async {
     if (!answered) {
       setState(() {
@@ -59,8 +65,10 @@ class _Historia2State extends State<Historia2> {
         feedbackMessage = option == 3 ? "¡Correcto!" : "Incorrecto :(";
       });
 
-      final respuesta = selectedOption;
-      final trabajo = await _peticionesAPI.ResolucionEnviar(respuesta);
+      final respuesta = opciones[option - 1];
+      final idNivel = 1;
+
+      final trabajo = await _peticionesAPI.ResolucionEnviar(idNivel, respuesta);
 
       if (trabajo == "Error") {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -127,69 +135,28 @@ class _Historia2State extends State<Historia2> {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onDoubleTap: () => _onDoubleTap(1),
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: _getOptionColor(1),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'Establecer círculos restaurativos, donde los implicados y todos los afectados puedan poseer un espacio de diálogo para resarcir el daño ocasionado.',
-                            style: TextStyle(fontSize: 15),
+                  for (int i = 0; i < opciones.length; i++)
+                    GestureDetector(
+                      onDoubleTap: () => _onDoubleTap(i + 1),
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: _getOptionColor(i + 1),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Center(
+                            child: Text(
+                              opciones[i],
+                              style: const TextStyle(fontSize: 15),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onDoubleTap: () => _onDoubleTap(2),
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: _getOptionColor(2),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'La nula intervención en conflictos, puesto que los responsables deben solucionar sus discrepancias sin ayuda de terceros.',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onDoubleTap: () => _onDoubleTap(3),
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: _getOptionColor(3),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'Asignar castigos severos a los responsables, con el objetivo de que la situación presentada no vuelva a ocurrir.',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                   const SizedBox(height: 10),
                   Text(
                     feedbackMessage.toUpperCase(),

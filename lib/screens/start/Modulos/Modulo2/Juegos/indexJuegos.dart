@@ -81,7 +81,7 @@ class _IndexJuegos2State extends State<IndexJuegos2> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const JuegoTrabajo()),
@@ -112,7 +112,7 @@ class _IndexJuegos2State extends State<IndexJuegos2> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const LiderazgoJuego()),
@@ -143,7 +143,7 @@ class _IndexJuegos2State extends State<IndexJuegos2> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>

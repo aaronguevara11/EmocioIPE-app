@@ -30,7 +30,7 @@ class _IndexJuegos3State extends State<IndexJuegos3> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const IdentiPlay()));

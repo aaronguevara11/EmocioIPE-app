@@ -1,3 +1,5 @@
+import 'package:emocioipe/Api/peticiones.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo3/index.dart';
 import 'package:flutter/material.dart';
 
 class IdentiPlay extends StatefulWidget {
@@ -11,17 +13,38 @@ class _IdentiPlayState extends State<IdentiPlay> {
   int? selectedOption;
   bool answered = false;
   String feedbackMessage = "";
+  PeticionesAPI _peticionesAPI = PeticionesAPI();
 
-  void _onDoubleTap(int option) {
+  final List<String> opciones = [
+    'Momentos antes de la exposición de una tarea',
+    'El niño parado desearía no estar ahi',
+    'Es una situación común',
+    'Facilidad para hablar en publico',
+  ];
+
+  void _onDoubleTap(int option) async {
     if (!answered) {
       setState(() {
         selectedOption = option;
         answered = true;
-        // Lógica para determinar si la opción es correcta
         feedbackMessage = (option == 1 || option == 2 || option == 3)
             ? "¡Correcto!"
             : "¡Incorrecto :(!";
       });
+
+      final respuesta = opciones[option - 1];
+      final idNivel = 2;
+
+      final trabajo = await _peticionesAPI.ResolucionEnviar(idNivel, respuesta);
+
+      if (trabajo == "Error") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Error al enviar la respuesta.'),
+            backgroundColor: Color.fromARGB(255, 144, 36, 28),
+          ),
+        );
+      }
 
       Future.delayed(const Duration(seconds: 1), () {
         Navigator.pushReplacement(
@@ -62,124 +85,48 @@ class _IdentiPlayState extends State<IdentiPlay> {
           ),
           Container(
             color: Colors.white60,
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.3,
             child: Center(
+                child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () => _onDoubleTap(1),
+                children: List.generate(opciones.length, (index) {
+                  return GestureDetector(
+                    onTap: () => _onDoubleTap(index + 1),
                     child: Container(
                       margin: const EdgeInsets.all(5),
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: _getOptionColor(1),
+                        color: _getOptionColor(index + 1),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
                         child: Center(
                           child: Text(
-                            'Momentos antes de la exposición de una tarea',
-                            style: TextStyle(
+                            opciones[index],
+                            style: const TextStyle(
                               fontSize: 17,
-                              color: Colors
-                                  .white, // Esto hace que el texto sea blanco
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () => _onDoubleTap(4),
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: _getOptionColor(4),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'Facilidad para hablar en publico',
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors
-                                  .white, // Esto hace que el texto sea blanco
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => _onDoubleTap(2),
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: _getOptionColor(3),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'El niño parado desearía no estar ahi',
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors
-                                  .white, // Esto hace que el texto sea blanco
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => _onDoubleTap(3),
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: _getOptionColor(3),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'Es una situación común',
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors
-                                  .white, // Esto hace que el texto sea blanco
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    feedbackMessage.toUpperCase(),
-                    style: TextStyle(
-                      fontFamily: 'AlfaSlabOne',
-                      color: feedbackMessage == "¡Correcto!"
-                          ? Colors.green
-                          : Colors.red,
-                      fontSize: 27,
-                    ),
-                  ),
-                ],
+                  );
+                }),
               ),
+            )),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            feedbackMessage.toUpperCase(),
+            style: TextStyle(
+              fontFamily: 'AlfaSlabOne',
+              color:
+                  feedbackMessage == "¡Correcto!" ? Colors.green : Colors.red,
+              fontSize: 27,
             ),
           ),
         ],
@@ -196,144 +143,109 @@ class Pregunta4 extends StatefulWidget {
 }
 
 class _Pregunta4State extends State<Pregunta4> {
-  int? selectedOption;
-  bool answered = false;
-  String feedbackMessage = "";
-  // Controlador para el TextField
   final TextEditingController _controller = TextEditingController();
-  // Variable para guardar el texto
-  String userInput = '';
-
-  void _onDoubleTap(int option) {
-    if (!answered) {
-      setState(() {
-        userInput = _controller
-            .text; // Guarda el texto en la variable para tu back de aca haces la peticion y lo envias
-
-        selectedOption = option;
-        answered = true;
-        // Lógica para determinar si la opción es correcta
-        feedbackMessage = (option == 1 || option == 2 || option == 3)
-            ? "¡Enviado!"
-            : "¡Incorrecto :(!";
-      });
-
-      Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Pregunta2(),
-          ),
-        );
-      });
-    }
-  }
-
-  Color _getOptionColor(int option) {
-    if (!answered) return const Color.fromARGB(255, 44, 64, 118);
-    if (option == 1 || option == 2 || option == 3) {
-      return const Color.fromARGB(255, 44, 64, 118);
-    } else if (option == 4) {
-      return const Color.fromARGB(255, 225, 101, 92);
-    } else {
-      return const Color.fromARGB(44, 64, 118, 255);
-    }
-  }
+  String feedbackMessage = "";
+  bool isSending = false;
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  PeticionesAPI _peticionesAPI = PeticionesAPI();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset:
-          true, // Asegura que el teclado no cubra los elementos
       body: SingleChildScrollView(
-        // Hacer el contenido desplazable
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Imagen
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.68,
-              child: Image.asset(
-                'assets/img/modulo3/Juego/5_real.png',
-                fit: BoxFit.cover,
+        child: Form(
+          key: formkey,
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/img/modulo3/Juego/5_real.png',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-
-            // Contenedor con el input y el botón
-            Container(
-              color: Colors.white60,
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Center(
+              Container(
+                color: Colors.white60,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // Texto encima del input
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: TextField(
-                        controller:
-                            _controller, // Asocia el controlador al TextField
-                        decoration: const InputDecoration(
-                          labelText: 'Tu respuesta',
-                          labelStyle: TextStyle(color: Colors.black54),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black), // Borde negro
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.yellow), // Borde amarillo
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
+                    TextFormField(
+                      controller: _controller,
+                      decoration: const InputDecoration(
+                        labelText: 'Tu respuesta',
+                        labelStyle: TextStyle(color: Colors.black54),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
                         ),
-                        maxLines: 1, // Limitar a una sola línea
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.yellow),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Debe enviar una respuesta';
+                        }
+                        return null;
+                      },
                     ),
-
-                    // Botón
+                    const SizedBox(height: 20),
                     GestureDetector(
-                      onTap: () => _onDoubleTap(1),
+                      onTap: () async {
+                        if (formkey.currentState!.validate()) {
+                          final String respuesta = _controller.text;
+                          final idNivel = 3;
+
+                          final trabajo = await _peticionesAPI.ResolucionEnviar(
+                            idNivel,
+                            respuesta,
+                          );
+
+                          if (trabajo == "Error") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Error al enviar la respuesta.'),
+                                backgroundColor:
+                                    Color.fromARGB(255, 144, 36, 28),
+                              ),
+                            );
+                          }
+
+                          Future.delayed(const Duration(seconds: 1), () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Pregunta2(),
+                              ),
+                            );
+                          });
+                        }
+                      },
                       child: Container(
-                        margin: const EdgeInsets.all(5),
-                        width: MediaQuery.of(context).size.width *
-                            0.45, // 50% menos margen
+                        width: MediaQuery.of(context).size.width / 2,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 24),
                         decoration: BoxDecoration(
-                          color: _getOptionColor(1),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
+                          color: Color.fromARGB(255, 24, 42, 88),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Text(
-                            'Enviar',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 17,
+                        child: const Text(
+                          'ENVIAR',
+                          style: TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      feedbackMessage.toUpperCase(),
-                      style: TextStyle(
-                        fontFamily: 'AlfaSlabOne',
-                        color: feedbackMessage == "¡Enviado!"
-                            ? Colors.green
-                            : Colors.red,
-                        fontSize: 27,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -351,17 +263,38 @@ class _Pregunta2State extends State<Pregunta2> {
   int? selectedOption;
   bool answered = false;
   String feedbackMessage = "";
+  PeticionesAPI _peticionesAPI = PeticionesAPI();
 
-  void _onDoubleTap(int option) {
+  final List<String> opciones = [
+    'Una madre ayudando a su hija con la tarea.',
+    'Hay muchos platos por lavar',
+    'Una hija ayudando a su mamá con la tarea',
+    'La mamá con su hija están jugando en la cocina',
+  ];
+
+  void _onDoubleTap(int option) async {
     if (!answered) {
       setState(() {
         selectedOption = option;
         answered = true;
-        // Lógica para determinar si la opción es correcta
         feedbackMessage = (option == 1 || option == 2 || option == 3)
             ? "¡Correcto!"
             : "¡Incorrecto :(!";
       });
+
+      final respuesta = opciones[option - 1];
+      final idNivel = 4;
+
+      final trabajo = await _peticionesAPI.ResolucionEnviar(idNivel, respuesta);
+
+      if (trabajo == "Error") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Error al enviar la respuesta.'),
+            backgroundColor: Color.fromARGB(255, 144, 36, 28),
+          ),
+        );
+      }
 
       Future.delayed(const Duration(seconds: 1), () {
         Navigator.pushReplacement(
@@ -402,7 +335,7 @@ class _Pregunta2State extends State<Pregunta2> {
               color: Colors.white60,
               height: MediaQuery.of(context).size.height * 0.55,
               child: Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -413,113 +346,34 @@ class _Pregunta2State extends State<Pregunta2> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.justify,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () => _onDoubleTap(1),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 3),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: _getOptionColor(1),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                'Una madre ayudando a su hija con la tarea.',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors
-                                      .white, // Esto hace que el texto sea blanco
+                      const SizedBox(height: 10),
+                      ...List.generate(opciones.length, (index) {
+                        return GestureDetector(
+                          onTap: () => _onDoubleTap(index + 1),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 3),
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: _getOptionColor(index + 1),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Center(
+                                child: Text(
+                                  opciones[index],
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => _onDoubleTap(3),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 3),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: _getOptionColor(3),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                'Hay muchos platos por lavar',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors
-                                      .white, // Esto hace que el texto sea blanco
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => _onDoubleTap(2),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 3),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: _getOptionColor(2),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                'Una hija ayudando a su mamá con la tarea',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors
-                                      .white, // Esto hace que el texto sea blanco
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => _onDoubleTap(4),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 3),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: _getOptionColor(4),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                'La mamá con su hija están jugando en la cocina',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors
-                                      .white, // Esto hace que el texto sea blanco
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                        );
+                      }),
                       const SizedBox(height: 10),
                       Text(
                         feedbackMessage.toUpperCase(),
@@ -552,28 +406,14 @@ class _Pregunta3State extends State<Pregunta3> {
   int? selectedOption;
   bool answered = false;
   String feedbackMessage = "";
+  final PeticionesAPI _peticionesAPI = PeticionesAPI();
 
-  void _onDoubleTap(int option) {
-    if (!answered) {
-      setState(() {
-        selectedOption = option;
-        answered = true;
-        // Lógica para determinar si la opción es correcta
-        feedbackMessage = (option == 1 || option == 2 || option == 3)
-            ? "¡Correcto!"
-            : "¡Incorrecto :(!";
-      });
-
-      Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Resultado(),
-          ),
-        );
-      });
-    }
-  }
+  final List<Map<String, dynamic>> opciones = [
+    {"texto": "Miedo", "valor": 1},
+    {"texto": "Preocupación", "valor": 3},
+    {"texto": "Ansiedad", "valor": 2},
+    {"texto": "Satisfacción", "valor": 4},
+  ];
 
   Color _getOptionColor(int option) {
     if (!answered) return const Color.fromARGB(255, 44, 64, 118);
@@ -588,6 +428,8 @@ class _Pregunta3State extends State<Pregunta3> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -595,7 +437,7 @@ class _Pregunta3State extends State<Pregunta3> {
           Padding(
             padding: const EdgeInsets.only(top: 25),
             child: SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: width,
               height: MediaQuery.of(context).size.height * 0.65,
               child: Image.asset(
                 'assets/img/modulo3/Juego/9_real.png',
@@ -606,129 +448,78 @@ class _Pregunta3State extends State<Pregunta3> {
           Container(
             color: Colors.white60,
             height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.width,
+            width: width,
             child: Center(
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () => _onDoubleTap(1),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    alignment: WrapAlignment.center,
+                    children: opciones.map((opcion) {
+                      return GestureDetector(
+                        onDoubleTap: () async {
+                          if (!answered) {
+                            setState(() {
+                              selectedOption = opcion["valor"];
+                              answered = true;
+                              feedbackMessage = (selectedOption == 1 ||
+                                      selectedOption == 2 ||
+                                      selectedOption == 3)
+                                  ? "¡Correcto!"
+                                  : "¡Incorrecto :(!";
+                            });
+
+                            final idNivel = 6;
+                            final respuesta = opcion["texto"];
+
+                            final resultado =
+                                await _peticionesAPI.ResolucionEnviar(
+                                    idNivel, respuesta);
+
+                            if (resultado == "Error") {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text('Error al enviar la respuesta.'),
+                                  backgroundColor:
+                                      Color.fromARGB(255, 144, 36, 28),
+                                ),
+                              );
+                            }
+
+                            Future.delayed(const Duration(seconds: 1), () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Resultado(),
+                                ),
+                              );
+                            });
+                          }
+                        },
                         child: Container(
-                          margin: const EdgeInsets.all(5),
-                          width: MediaQuery.of(context).size.width *
-                              0.45, // 50% menos margen
-                          height: MediaQuery.of(context).size.width *
-                              0.15, // Para hacerlo cuadrado
+                          width: width * 0.45,
+                          height: width * 0.15,
                           decoration: BoxDecoration(
-                            color: _getOptionColor(1),
+                            color: _getOptionColor(opcion["valor"]),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                'Miedo',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                          child: Center(
+                            child: Text(
+                              opcion["texto"],
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 17,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () => _onDoubleTap(3),
-                        child: Container(
-                          margin: const EdgeInsets.all(5),
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          height: MediaQuery.of(context).size.width * 0.15,
-                          decoration: BoxDecoration(
-                            color: _getOptionColor(3),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
-                              child: Text('Preocupación',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  selectionColor:
-                                      Color.fromARGB(255, 255, 255, 255)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () => _onDoubleTap(1),
-                        child: Container(
-                          margin: const EdgeInsets.all(5),
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          height: MediaQuery.of(context).size.width * 0.15,
-                          decoration: BoxDecoration(
-                            color: _getOptionColor(1),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                'Ansiedad',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => _onDoubleTap(4),
-                        child: Container(
-                          margin: const EdgeInsets.all(5),
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          height: MediaQuery.of(context).size.width * 0.15,
-                          decoration: BoxDecoration(
-                            color: _getOptionColor(4),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                'Satisfacción',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                      );
+                    }).toList(),
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -759,109 +550,93 @@ class Pregunta5 extends StatefulWidget {
 }
 
 class _Pregunta5State extends State<Pregunta5> {
-  int? selectedOption;
-  bool answered = false;
+  final TextEditingController _controller = TextEditingController();
   String feedbackMessage = "";
-  // Controlador para el TextField
-  final TextEditingController _controller2 = TextEditingController();
-  // Variable para guardar el texto
-  String userInput = '';
-
-  void _onDoubleTap(int option) {
-    if (!answered) {
-      setState(() {
-        userInput = _controller2
-            .text; // Guarda el texto en la variable para tu back de aca haces la peticion y lo envias
-
-        selectedOption = option;
-        answered = true;
-        // Lógica para determinar si la opción es correcta
-        feedbackMessage = (option == 1 || option == 2 || option == 3)
-            ? "¡Enviado!"
-            : "¡Incorrecto :(!";
-      });
-      Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Pregunta3(),
-          ),
-        );
-      });
-    }
-  }
-
-  Color _getOptionColor(int option) {
-    if (!answered) return const Color.fromARGB(255, 44, 64, 118);
-    if (option == 1 || option == 2 || option == 3) {
-      return const Color.fromARGB(255, 44, 64, 118);
-    } else if (option == 4) {
-      return const Color.fromARGB(255, 225, 101, 92);
-    } else {
-      return const Color.fromARGB(44, 64, 118, 255);
-    }
-  }
+  bool isSending = false;
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  PeticionesAPI _peticionesAPI = PeticionesAPI();
 
   @override
   Widget build(BuildContext context) {
+    final altoPantalla = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      resizeToAvoidBottomInset:
-          true, // Asegura que el teclado no cubra los elementos
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
-        // Hacer el contenido desplazable
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Imagen
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                'assets/img/modulo3/Juego/8_real.png',
-                fit: BoxFit.cover,
+        child: Form(
+          key: formkey,
+          child: Column(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  'assets/img/modulo3/Juego/8_real.png',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-
-            // Contenedor con el input y el botón
-            Container(
-              color: Colors.white60,
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Center(
+              Container(
+                color: Colors.white60,
+                height: altoPantalla * 0.32,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Texto encima del input
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: TextField(
-                        controller:
-                            _controller2, // Asocia el controlador al TextField
-                        decoration: const InputDecoration(
-                          labelText: 'Tu respuesta',
-                          labelStyle: TextStyle(color: Colors.black54),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black), // Borde negro
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.yellow), // Borde amarillo
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
+                    TextFormField(
+                      controller: _controller,
+                      decoration: const InputDecoration(
+                        labelText: 'Tu respuesta',
+                        labelStyle: TextStyle(color: Colors.black54),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
                         ),
-                        maxLines: 1, // Limitar a una sola línea
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.yellow),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Debe enviar una respuesta';
+                        }
+                        return null;
+                      },
                     ),
-
-                    // Botón
                     GestureDetector(
-                      onTap: () => _onDoubleTap(1),
+                      onTap: () async {
+                        if (formkey.currentState!.validate()) {
+                          final String respuesta = _controller.text;
+                          final idNivel = 5;
+
+                          final trabajo = await _peticionesAPI.ResolucionEnviar(
+                              idNivel, respuesta);
+
+                          if (trabajo == "Error") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Error al enviar la respuesta.'),
+                                backgroundColor:
+                                    Color.fromARGB(255, 144, 36, 28),
+                              ),
+                            );
+                          }
+
+                          Future.delayed(const Duration(seconds: 1), () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Pregunta3(),
+                              ),
+                            );
+                          });
+                        }
+                      },
                       child: Container(
                         margin: const EdgeInsets.all(5),
-                        width: MediaQuery.of(context).size.width *
-                            0.45, // 50% menos margen
+                        width: MediaQuery.of(context).size.width * 0.45,
                         decoration: BoxDecoration(
-                          color: _getOptionColor(1),
+                          color: const Color.fromARGB(255, 44, 64, 118),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(10)),
                         ),
@@ -886,7 +661,7 @@ class _Pregunta5State extends State<Pregunta5> {
                       feedbackMessage.toUpperCase(),
                       style: TextStyle(
                         fontFamily: 'AlfaSlabOne',
-                        color: feedbackMessage == "¡Enviado!"
+                        color: feedbackMessage == "¡ENVIADO!"
                             ? Colors.green
                             : Colors.red,
                         fontSize: 27,
@@ -895,8 +670,8 @@ class _Pregunta5State extends State<Pregunta5> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -909,12 +684,22 @@ class Resultado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SizedBox.expand(
-          // Ocupa todo el espacio disponible
-          child: Image.asset(
-            'assets/img/modulo3/Juego/final_real.png', // No es necesario const aquí
-            fit: BoxFit.cover, // Ajusta la imagen para cubrir todo el espacio
+      body: GestureDetector(
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const IndexModulo3(),
+            ),
+          );
+        },
+        child: Center(
+          child: SizedBox(
+            child: Image.asset(
+              'assets/img/modulo3/Juego/final_real.png',
+              fit: BoxFit.cover,
+            ),
+            width: MediaQuery.of(context).size.width,
           ),
         ),
       ),
