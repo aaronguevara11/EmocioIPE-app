@@ -1,6 +1,5 @@
 import 'package:emocioipe/Api/peticiones.dart';
 import 'package:emocioipe/screens/start/Modulos/Modulo2/Juegos/indexJuegos.dart';
-import 'package:emocioipe/screens/start/Modulos/Modulo2/menu_conceptos.dart';
 import 'package:flutter/material.dart';
 
 class JuegoTrabajo extends StatefulWidget {
@@ -109,8 +108,7 @@ class _Historia1State extends State<Historia1> {
                             final respuesta = _respuestaController.text.trim();
 
                             final response =
-                                await _peticionesAPI.ComunicacionEnviar(
-                                    respuesta);
+                                await _peticionesAPI.TrabajoEnviar(respuesta);
 
                             if (response == "Error") {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -227,6 +225,12 @@ class _Historia2State extends State<Historia2> {
   String feedbackMessage = "";
   PeticionesAPI _peticionesAPI = PeticionesAPI();
 
+  final List<String> opcionesTexto = [
+    'Una reflexión grupal que permita identificar la forma en cómo se está trabajando dentro del equipo, permitiendo mejorar aspectos como la organización o la comunicación.',
+    'Una elección adecuada de los miembros del grupo, los cuales pueden trabajar individualmente y en subgrupos porque esa es la manera adecuada de trabajar en equipo.',
+    'Designar responsables, esto nos permitirá rescatar el trabajo propio, donde el maestro visualizará a los culpables y resaltará el trabajo aislado elaborado por los participantes del grupo.',
+  ];
+
   void _onDoubleTap(int option) async {
     if (!answered) {
       setState(() {
@@ -235,9 +239,9 @@ class _Historia2State extends State<Historia2> {
         feedbackMessage = option == 1 ? "¡Correcto!" : "Incorrecto :(";
       });
 
-      final respuesta = selectedOption;
+      final respuestaTexto = opcionesTexto[option - 1];
 
-      final trabajo = await _peticionesAPI.TrabajoEnviar2(respuesta);
+      final trabajo = await _peticionesAPI.TrabajoEnviar2(respuestaTexto);
 
       if (trabajo == "Error") {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -263,8 +267,8 @@ class _Historia2State extends State<Historia2> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
+          // Imagen superior
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.25,
@@ -273,101 +277,60 @@ class _Historia2State extends State<Historia2> {
               fit: BoxFit.cover,
             ),
           ),
+          // Contenido central
           Container(
             color: Colors.white60,
             height: MediaQuery.of(context).size.height * 0.6,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onDoubleTap: () => _onDoubleTap(1),
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: selectedOption == 1 || selectedOption != null
-                            ? const Color.fromARGB(255, 115, 220, 118)
-                            : const Color.fromARGB(255, 201, 224, 243),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'Una reflexión grupal que permita identificar la forma en cómo se está trabajando dentro del equipo, permitiendo mejorar aspectos como la organización o la comunicación.',
-                            style: TextStyle(fontSize: 15),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: opcionesTexto.length,
+                    itemBuilder: (context, index) {
+                      final isSelected = selectedOption == index + 1;
+                      final isCorrect = index == 0;
+
+                      return GestureDetector(
+                        onDoubleTap: () => _onDoubleTap(index + 1),
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? (isCorrect
+                                    ? const Color.fromARGB(255, 115, 220, 118)
+                                    : const Color.fromARGB(255, 225, 101, 92))
+                                : const Color.fromARGB(255, 201, 224, 243),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              opcionesTexto[index],
+                              style: const TextStyle(fontSize: 15),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
-                  GestureDetector(
-                    onDoubleTap: () => _onDoubleTap(2),
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: selectedOption == 2
-                            ? const Color.fromARGB(255, 225, 101, 92)
-                            : (selectedOption != null
-                                ? const Color.fromARGB(255, 225, 101, 92)
-                                : const Color.fromARGB(255, 201, 224, 243)),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'Una elección adecuada de los miembros del grupo, los cuales pueden trabajar individualmente y en subgrupos porque esa es la manera adecuada de trabajar en equipo.',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  feedbackMessage.toUpperCase(),
+                  style: TextStyle(
+                    fontFamily: 'AlfaSlabOne',
+                    color: feedbackMessage == "¡Correcto!"
+                        ? Colors.green
+                        : Colors.red,
+                    fontSize: 27,
                   ),
-                  GestureDetector(
-                    onDoubleTap: () => _onDoubleTap(3),
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: selectedOption == 3
-                            ? const Color.fromARGB(255, 225, 101, 92)
-                            : (selectedOption != null
-                                ? const Color.fromARGB(255, 225, 101, 92)
-                                : const Color.fromARGB(255, 201, 224, 243)),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'Designar responsables, esto nos permitirá rescatar el trabajo propio, donde el maestro visualizará a los culpables y resaltará el trabajo aislado elaborado por los participantes del grupo.',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    feedbackMessage.toUpperCase(),
-                    style: TextStyle(
-                      fontFamily: 'AlfaSlabOne',
-                      color: feedbackMessage == "¡Correcto!"
-                          ? Colors.green
-                          : Colors.red,
-                      fontSize: 27,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
+          // Imagen inferior
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.15,

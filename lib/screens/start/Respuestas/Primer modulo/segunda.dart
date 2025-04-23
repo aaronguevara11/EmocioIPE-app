@@ -71,17 +71,17 @@ class _SegundaRespuestaState extends State<SegundaRespuesta> {
                                 ),
                                 const Divider(thickness: 1),
                                 _buildRespuestaItem(
-                                  'img1.jpg',
+                                  'img4.jpg',
                                   '¿Cómo sabes que emoción está sintiendo?',
                                   respuesta['respuesta1'],
                                 ),
                                 _buildRespuestaItem(
-                                  'img2.jpg',
+                                  'img5.jpg',
                                   '¿Qué conoces sobre la emoción de la imagen?',
                                   respuesta['respuesta2'],
                                 ),
                                 _buildRespuestaItem(
-                                  'img3.jpg',
+                                  'img6.jpg',
                                   'Describe la emoción de la imagen',
                                   respuesta['respuesta3'],
                                 ),

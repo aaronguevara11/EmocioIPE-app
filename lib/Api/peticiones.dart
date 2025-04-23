@@ -287,7 +287,7 @@ class PeticionesAPI {
       final response = await dio.post(
         'https://emocioipe.onrender.com/app/trabajo/enviarRespuesta',
         data: {
-          'idNivel': 1,
+          'idNivel': 2,
           'respuesta': respuesta,
         },
         options: Options(
@@ -466,6 +466,54 @@ class PeticionesAPI {
     try {
       final response = await dio.get(
         'https://emocioipe.onrender.com/app/emotiquiz/verRespuesta',
+        data: {
+          'idNivel': idNivel,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data['respuestas'] as List;
+      return result.map((e) => e as Map<String, dynamic>).toList();
+    } on DioException catch (e) {
+      print(e);
+    }
+    return [];
+  }
+
+  Future<List<Map<String, dynamic>>> VerComunicacion(int idNivel) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.get(
+        'https://emocioipe.onrender.com/app/comunicacion/verRespuesta',
+        data: {
+          'idNivel': idNivel,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data['respuestas'] as List;
+      return result.map((e) => e as Map<String, dynamic>).toList();
+    } on DioException catch (e) {
+      print(e);
+    }
+    return [];
+  }
+
+  Future<List<Map<String, dynamic>>> VerTrabajo(int idNivel) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.get(
+        'https://emocioipe.onrender.com/app/trabajo/verRespuesta',
         data: {
           'idNivel': idNivel,
         },

@@ -1,15 +1,17 @@
-import 'package:emocioipe/screens/start/Respuestas/Primer%20modulo/primera.dart';
-import 'package:emocioipe/screens/start/Respuestas/Primer%20modulo/segunda.dart';
+import 'package:emocioipe/screens/start/Respuestas/Segundo%20modulo/Comunicacion/primeraRespuestaComunicacion.dart';
+import 'package:emocioipe/screens/start/Respuestas/Segundo%20modulo/Comunicacion/segundaRespuestaComunicacion.dart';
 import 'package:flutter/material.dart';
 
-class IndexRespuesta1 extends StatefulWidget {
-  const IndexRespuesta1({super.key});
+class IndexRespuestaComunicacion extends StatefulWidget {
+  const IndexRespuestaComunicacion({super.key});
 
   @override
-  State<IndexRespuesta1> createState() => _IndexRespuesta1State();
+  State<IndexRespuestaComunicacion> createState() =>
+      _IndexRespuestaComunicacionState();
 }
 
-class _IndexRespuesta1State extends State<IndexRespuesta1> {
+class _IndexRespuestaComunicacionState
+    extends State<IndexRespuestaComunicacion> {
   int currentPage = 0;
   final PageController pageController = PageController();
 
@@ -26,8 +28,8 @@ class _IndexRespuesta1State extends State<IndexRespuesta1> {
             });
           },
           children: [
-            PrimeraRespuesta(idNivel: 1),
-            SegundaRespuesta(idNivel: 2)
+            PrimeraRespuestaComunicacion(idNivel: 1),
+            SegundaRespuestaComunicacion(idNivel: 2)
           ],
         ),
       ),

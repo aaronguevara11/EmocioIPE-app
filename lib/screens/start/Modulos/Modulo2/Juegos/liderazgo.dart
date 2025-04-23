@@ -373,6 +373,7 @@ class _Resultado2State extends State<Resultado2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
@@ -384,7 +385,6 @@ class _Resultado2State extends State<Resultado2> {
         child: SizedBox.expand(
           child: Image.asset(
             "assets/img/modulo2/Juegos/21.png",
-            fit: BoxFit.cover,
           ),
         ),
       ),
