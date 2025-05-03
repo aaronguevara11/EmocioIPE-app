@@ -149,7 +149,9 @@ class _MenuRespuestas2State extends State<MenuRespuestas2> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const IndexRespuestaResolucion()),
+                                    const IndexRespuestaResolucion(
+                                      idNivel: 1,
+                                    )),
                           );
                         },
                         child: SizedBox(

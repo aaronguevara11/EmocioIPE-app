@@ -1,7 +1,7 @@
-import 'package:emocioipe/screens/start/Modulos/Modulo3/index.dart';
-import 'package:emocioipe/screens/start/Modulos/Modulo4/index.dart';
+import 'package:emocioipe/screens/start/Respuestas/Cuarto%20modulo/indexCuarto.dart';
 import 'package:emocioipe/screens/start/Respuestas/Primer%20modulo/indexRespuesta1.dart';
 import 'package:emocioipe/screens/start/Respuestas/Segundo%20modulo/MenuRespuestas2.dart';
+import 'package:emocioipe/screens/start/Respuestas/Tercer%20modulo/indexTercerModulo.dart';
 import 'package:flutter/material.dart';
 
 class IndexRespuestas extends StatefulWidget {
@@ -89,7 +89,7 @@ class _IndexRespuestasState extends State<IndexRespuestas> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const IndexModulo3()));
+                        builder: (context) => const IndexTercerModulo()));
               },
               child: SizedBox(
                 width: MediaQuery.of(context).size.width - 15,
@@ -117,7 +117,7 @@ class _IndexRespuestasState extends State<IndexRespuestas> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const IndexModulo4()));
+                        builder: (context) => const IndexRespuesta4()));
               },
               child: SizedBox(
                 width: MediaQuery.of(context).size.width - 15,

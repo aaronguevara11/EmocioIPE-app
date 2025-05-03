@@ -1,15 +1,15 @@
-import 'package:emocioipe/screens/start/Modulos/Modulo4/Juegos/Actua%20Ya/actua.dart';
-import 'package:emocioipe/screens/start/Modulos/Modulo4/Juegos/Ordena%20Ya/ordena.dart';
+import 'package:emocioipe/screens/start/Respuestas/Cuarto%20modulo/Actua/indexRespuestaActua.dart';
+import 'package:emocioipe/screens/start/Respuestas/Cuarto%20modulo/Ordena/indexOrdena.dart';
 import 'package:flutter/material.dart';
 
-class IndexJuegos4 extends StatefulWidget {
-  const IndexJuegos4({super.key});
+class IndexRespuesta4 extends StatefulWidget {
+  const IndexRespuesta4({super.key});
 
   @override
-  State<IndexJuegos4> createState() => _IndexJuegos4State();
+  State<IndexRespuesta4> createState() => _IndexRespuesta4State();
 }
 
-class _IndexJuegos4State extends State<IndexJuegos4> {
+class _IndexRespuesta4State extends State<IndexRespuesta4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +38,8 @@ class _IndexJuegos4State extends State<IndexJuegos4> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ActuaYa()),
+                                builder: (context) =>
+                                    const IndexActuaRespuesta()),
                           );
                         },
                         child: SizedBox(
@@ -68,7 +69,8 @@ class _IndexJuegos4State extends State<IndexJuegos4> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const OrdenaYa()),
+                                builder: (context) =>
+                                    const IndexOrdenaRespuesta()),
                           );
                         },
                         child: SizedBox(

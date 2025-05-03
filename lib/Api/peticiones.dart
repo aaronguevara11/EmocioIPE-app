@@ -530,4 +530,76 @@ class PeticionesAPI {
     }
     return [];
   }
+
+  Future<List<Map<String, dynamic>>> VerLiderazgo(int idNivel) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.get(
+        'https://emocioipe.onrender.com/app/liderazgo/verRespuesta',
+        data: {
+          'idNivel': idNivel,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data['respuestas'] as List;
+      return result.map((e) => e as Map<String, dynamic>).toList();
+    } on DioException catch (e) {
+      print(e);
+    }
+    return [];
+  }
+
+  Future<List<Map<String, dynamic>>> VerResolucion(int idNivel) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.get(
+        'https://emocioipe.onrender.com/app/resolucion/verRespuesta',
+        data: {
+          'idNivel': idNivel,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data['respuestas'] as List;
+      return result.map((e) => e as Map<String, dynamic>).toList();
+    } on DioException catch (e) {
+      print(e);
+    }
+    return [];
+  }
+
+  Future<List<Map<String, dynamic>>> VerModulo3(int idNivel) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+
+    try {
+      final response = await dio.get(
+        'https://emocioipe.onrender.com/app/modulo3/verRespuesta',
+        data: {
+          'idNivel': idNivel,
+        },
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ),
+      );
+      var result = response.data['respuestas'] as List;
+      return result.map((e) => e as Map<String, dynamic>).toList();
+    } on DioException catch (e) {
+      print(e);
+    }
+    return [];
+  }
 }

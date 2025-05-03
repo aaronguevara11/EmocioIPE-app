@@ -12,7 +12,7 @@ class _OrdenaYaState extends State<OrdenaYa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 247, 240, 1.0),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Align(
