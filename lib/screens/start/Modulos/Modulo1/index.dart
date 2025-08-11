@@ -1,4 +1,5 @@
 import 'package:emocioipe/screens/start/Modulos/Modulo1/Juegos/juegos.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo1/bibliografia.dart';
 import 'package:emocioipe/screens/start/Modulos/Modulo1/emociones/conceptos.dart';
 import 'package:flutter/material.dart';
 
@@ -117,7 +118,7 @@ class _Modulo1State extends State<Modulo1> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Modulo1()),
+                                builder: (context) => const Bibliografia1()),
                           );
                         },
                         child: SizedBox(

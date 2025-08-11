@@ -116,11 +116,6 @@ class _PerfilState extends State<Perfil> {
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black54),
                                     ),
-                                    Text(
-                                      'Docente',
-                                      style: const TextStyle(
-                                          fontSize: 18, color: Colors.black54),
-                                    ),
                                     SizedBox(
                                       height: 3,
                                     ),

@@ -1,4 +1,5 @@
 import 'package:emocioipe/screens/start/Modulos/Modulo3/Juego/indexJuego3.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo3/bibliografias3.dart';
 import 'package:emocioipe/screens/start/Modulos/Modulo3/menu_conceptos.dart';
 import 'package:flutter/material.dart';
 
@@ -117,7 +118,7 @@ class _IndexModulo3State extends State<IndexModulo3> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const IndexModulo3()),
+                                builder: (context) => const Bibliografias3()),
                           );
                         },
                         child: SizedBox(

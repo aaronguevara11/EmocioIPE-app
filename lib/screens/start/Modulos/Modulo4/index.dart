@@ -1,5 +1,6 @@
 import 'package:emocioipe/screens/start/Modulos/Modulo4/Juegos/indexJuego4.dart';
 import 'package:emocioipe/screens/start/Modulos/Modulo4/Conceptos/menu.dart';
+import 'package:emocioipe/screens/start/Modulos/Modulo4/bibliografias4.dart';
 import 'package:flutter/material.dart';
 
 class IndexModulo4 extends StatefulWidget {
@@ -117,7 +118,7 @@ class _IndexModulo4State extends State<IndexModulo4> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const IndexModulo4()),
+                                builder: (context) => const Bibliografias4()),
                           );
                         },
                         child: SizedBox(
