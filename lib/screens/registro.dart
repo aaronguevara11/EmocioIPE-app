@@ -1,6 +1,7 @@
+import 'dart:ffi';
+
 import 'package:emocioipe/Api/peticiones.dart';
 import 'package:emocioipe/screens/login.dart';
-import 'package:emocioipe/screens/start/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,6 +104,9 @@ class _RegistroIndexState extends State<RegistroIndex> {
                                         validator: (value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Ingrese su dni';
+                                          }
+                                          if (value.length != 8) {
+                                            return 'El número debe tener exactamente 8 dígitos';
                                           }
                                           return null;
                                         },
@@ -226,7 +230,10 @@ class _RegistroIndexState extends State<RegistroIndex> {
                                         ),
                                         validator: (value) {
                                           if (value == null || value.isEmpty) {
-                                            return 'Ingrese su apellido materno';
+                                            return 'Ingrese su numero';
+                                          }
+                                          if (value.length != 9) {
+                                            return 'El número debe tener exactamente 9 dígitos';
                                           }
                                           return null;
                                         },
@@ -344,15 +351,16 @@ class _RegistroIndexState extends State<RegistroIndex> {
                                     setState(() {
                                       isLoading = true;
                                     });
-
-                                    final String dni = dniController.text;
+                                    final int dni =
+                                        int.parse(dniController.text);
+                                    final int numero =
+                                        int.parse(numeroController.text);
                                     final String nombre = nombreController.text;
                                     final String paterno =
                                         paternoController.text;
                                     final String materno =
                                         maternoController.text;
                                     final String correo = correoController.text;
-                                    final String numero = numeroController.text;
                                     final String password =
                                         passwordController.text;
 
@@ -394,7 +402,8 @@ class _RegistroIndexState extends State<RegistroIndex> {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => const Home()),
+                                            builder: (context) =>
+                                                const LoginVentana()),
                                       );
                                     }
                                   }

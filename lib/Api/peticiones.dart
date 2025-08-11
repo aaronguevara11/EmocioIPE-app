@@ -75,6 +75,7 @@ class PeticionesAPI {
           'nombre': nombre,
           'apaterno': apaterno,
           'amaterno': amaterno,
+          'numero': numero,
           'correo': correo,
           'dni': dni,
           'password': password
@@ -86,11 +87,12 @@ class PeticionesAPI {
         return "Datos incorrectos";
       } else if (response.statusCode == 500) {
         return "Error en el servidor";
-      } else {
-        final token = response.data['token'];
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString('token', token);
-        return token;
+      } else if (response.statusCode == 200) {
+        print("Docente registrado exitosamente");
+        print(response);
+      }
+      {
+        return "";
       }
     } on DioException catch (e) {
       print(e);
@@ -101,12 +103,13 @@ class PeticionesAPI {
   Future<Object> RegistrarEstudiante(
       dni, nombre, apaterno, amaterno, numero, correo, password) async {
     try {
-      final response = await dio.put(
+      final response = await dio.post(
         'https://emocioipe.onrender.com/app/registrarAlumnos',
         data: {
           'nombre': nombre,
           'apaterno': apaterno,
           'amaterno': amaterno,
+          'numero': numero,
           'correo': correo,
           'dni': dni,
           'password': password
@@ -118,11 +121,11 @@ class PeticionesAPI {
         return "Datos incorrectos";
       } else if (response.statusCode == 500) {
         return "Error en el servidor";
+      } else if (response.statusCode == 200) {
+        print("Docente registrado exitosamente");
+        print(response);
       } else {
-        final token = response.data['token'];
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString('token', token);
-        return token;
+        return "Docente registrado exitosamente";
       }
     } on DioException catch (e) {
       print(e);

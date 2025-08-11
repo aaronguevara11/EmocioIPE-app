@@ -107,17 +107,18 @@ class _PerfilState extends State<Perfil> {
                                   width: 10,
                                 ),
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '$nombre $apaterno',
+                                      '$nombre\n$apaterno',
                                       style: const TextStyle(
                                           fontSize: 23,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black54),
+                                      textAlign: TextAlign.center,
                                     ),
                                     SizedBox(
-                                      height: 3,
+                                      height: 4,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(2),
